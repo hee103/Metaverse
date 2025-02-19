@@ -92,11 +92,11 @@ public class MinigamePlayer : MonoBehaviour
         {
             // 죽음 처리
             isDead = true;
-            animator.SetBool("isDie", true);  // 죽음 애니메이션 실행
-            rigid.velocity = Vector2.zero;// 움직임 정지
+            animator.SetBool("isDie", true);  
+            rigid.velocity = Vector2.zero;
             deathCooldown = 1f;
             gameManager.GameOver();
-            // 추가적으로 죽음 처리에 대한 로직을 여기 추가할 수 있습니다.
+            
         }
     }
 }

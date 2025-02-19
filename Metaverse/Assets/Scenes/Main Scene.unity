@@ -391,8 +391,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 561633502}
-  m_Layer: 0
-  m_Name: Luna
+  m_Layer: 3
+  m_Name: NPC2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3751,8 +3751,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 623212472}
-  m_Layer: 0
-  m_Name: Ludo
+  m_Layer: 3
+  m_Name: NPC1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4831,9 +4831,9 @@ GameObject:
   - component: {fileID: 920318334}
   - component: {fileID: 920318333}
   - component: {fileID: 920318332}
-  m_Layer: 0
-  m_Name: MainSprite
-  m_TagString: NPC
+  m_Layer: 3
+  m_Name: Luna
+  m_TagString: Luna
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5875,8 +5875,8 @@ GameObject:
   - component: {fileID: 1775313803}
   - component: {fileID: 1775313804}
   - component: {fileID: 1775313805}
-  m_Layer: 0
-  m_Name: MainSprite
+  m_Layer: 3
+  m_Name: Ludo
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

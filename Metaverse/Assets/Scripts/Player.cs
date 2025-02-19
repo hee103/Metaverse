@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class Player : MonoBehaviour
     float v;
     bool isHorizonMove;
     Vector3 dirVec;
+    GameObject scanNPC;
 
     private void Awake()
     {
@@ -40,6 +43,32 @@ public class Player : MonoBehaviour
 
         animator.SetInteger("isHor",(int)h);
         animator.SetInteger("isVer", (int)v);
+
+        if(vDown && v==1)
+        {
+            dirVec = Vector3.up;
+        }
+        else if(vDown && v== -1)
+        {
+            dirVec= Vector3.down;
+        }
+        else if(hDown&& h==-1)
+        {
+            dirVec= Vector3.left;
+        }
+        else if(hDown&&h==1)
+        {
+            dirVec=Vector3.right;
+        }
+        
+        // Scan NPC
+        if(Input.GetButtonDown("Jump")&&scanNPC != null)
+        {
+            Debug.Log("This is:"+scanNPC.name);
+            SceneManager.LoadScene("Game Scene");
+        }
+
+
     }
 
     private void FixedUpdate()
@@ -47,6 +76,19 @@ public class Player : MonoBehaviour
         Vector2 moveVec = isHorizonMove ? new Vector2(h, 0) : new Vector2(0, v);
         rigid.velocity = moveVec*Speed;
 
-        //Debug.DrawRay();
+        Debug.DrawRay(rigid.position,dirVec*0.7f,new Color(0,1,0));
+        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, dirVec, 0.7f,LayerMask.GetMask("NPC"));
+        if(rayHit.collider != null)
+        {
+            scanNPC = rayHit.collider.gameObject;
+        }
+        else
+        {
+            scanNPC = null;
+        }
     }
+
+   
+
+
 }
