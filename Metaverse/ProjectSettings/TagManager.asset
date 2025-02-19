@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Obstacle
   - Ground
+  - NPC
   layers:
   - Default
   - TransparentFX

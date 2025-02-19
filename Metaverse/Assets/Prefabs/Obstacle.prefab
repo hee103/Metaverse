@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2552a2dafef541c4b8773ebee373b75b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  widthPaddingMin: 1
+  widthPaddingMin: 3
   widthPaddingMax: 5
   Object: {fileID: 6568249988878531925}
 --- !u!61 &6446462406098425215

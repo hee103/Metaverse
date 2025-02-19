@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        uiManager.GameInfoPannel();
         uiManager.UpdateScore(0);
     }
 
@@ -46,7 +45,6 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
     }
 
     public void AddScore(int score)

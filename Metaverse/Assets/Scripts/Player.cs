@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     float h;
     float v;
     bool isHorizonMove;
+    Vector3 dirVec;
 
     private void Awake()
     {
@@ -45,5 +46,7 @@ public class Player : MonoBehaviour
     {
         Vector2 moveVec = isHorizonMove ? new Vector2(h, 0) : new Vector2(0, v);
         rigid.velocity = moveVec*Speed;
+
+        //Debug.DrawRay();
     }
 }

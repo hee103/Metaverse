@@ -17,18 +17,17 @@ public class UIManager : MonoBehaviour
     public Button exit;
     public Button reStart;
 
+
     private int currentScore = 0; // 현재 점수
     private int highScore = 0; // 최고 점수
 
     public void Start()
     {
-        if (scoreText == null)
-        {
-            Debug.LogError("scoreText is null");
-            return;
-        }
-        gameInfoImage.gameObject.SetActive(false);
-        resultImage.gameObject.SetActive(false);
+
+     
+        GameInfoPannel();
+        
+
         highScore = PlayerPrefs.GetInt("HighScore", 0);
         highScoreText.text = highScore.ToString();
     }
@@ -36,12 +35,16 @@ public class UIManager : MonoBehaviour
     // 게임 설명 패널 활성화
     public void GameInfoPannel()
     {
+        Time.timeScale = 0;
         gameInfoImage.gameObject.SetActive(true);
+
+
     }
 
     // 결과 패널 활성화
     public void ResultPannel()
     {
+        
         resultImage.gameObject.SetActive(true);
     }
 
@@ -76,10 +79,15 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene("Main Scene");
     }
 
-    // 게임 재시작 (결과 화면 닫기 + 게임 정보 닫기)
+    // 게임 재시작 
     public void ReStart()
     {
-        gameInfoImage.gameObject.SetActive(false); // 게임 정보 패널 닫기
+
         GameManager.Instance.RestartGame();
+    }
+    public void StartButtonClick()
+    {
+        gameInfoImage.gameObject.SetActive(false);
+        Time.timeScale = 1;
     }
 }
