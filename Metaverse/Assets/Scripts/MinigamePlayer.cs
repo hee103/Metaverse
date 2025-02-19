@@ -9,14 +9,16 @@ public class MinigamePlayer : MonoBehaviour
     public float jumpForce = 8f;  // 점프 힘
     public float forwardSpeed = 5f;
     public bool isDead = false;
-
+    float deathCooldown = 0f;
     public bool isJump = false;
     private int jumpCount = 0;  // 현재 점프 횟수
     private const int maxJumpCount = 1;  // 최대 2단 점프
     private bool isGrounded = false;
+    GameManager gameManager = null;
 
     void Start()
     {
+        gameManager = GameManager.Instance;
         animator = transform.GetComponentInChildren<Animator>();
         rigid = transform.GetComponent<Rigidbody2D>();
         rigid.gravityScale = 2f;  // 중력 활성화
@@ -26,6 +28,20 @@ public class MinigamePlayer : MonoBehaviour
     {
         if (isDead) return;
 
+        if (isDead)
+        {
+            if (deathCooldown <= 0)
+            {
+                if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+                {
+                    gameManager.RestartGame();
+                }
+            }
+            else
+            {
+                deathCooldown -= Time.deltaTime;
+            }
+        }
         // 스페이스바를 누르면 점프 (최대 2번까지 가능)
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumpCount)
         {
@@ -77,7 +93,9 @@ public class MinigamePlayer : MonoBehaviour
             // 죽음 처리
             isDead = true;
             animator.SetBool("isDie", true);  // 죽음 애니메이션 실행
-            rigid.velocity = Vector2.zero;  // 움직임 정지
+            rigid.velocity = Vector2.zero;// 움직임 정지
+            deathCooldown = 1f;
+            gameManager.GameOver();
             // 추가적으로 죽음 처리에 대한 로직을 여기 추가할 수 있습니다.
         }
     }
