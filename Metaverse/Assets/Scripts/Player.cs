@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     GameObject scanNPC;
     public GameObject spaceIcon_Luna; 
     public GameObject spaceIcon_Ludo;
-
+    public GameObject miniGameZone;
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
@@ -82,6 +82,7 @@ public class Player : MonoBehaviour
         Debug.DrawRay(rigid.position,dirVec*0.7f,new Color(0,1,0));
         RaycastHit2D rayHitLuna = Physics2D.Raycast(rigid.position, dirVec, 0.7f,LayerMask.GetMask("Luna"));
         RaycastHit2D rayHitLudo = Physics2D.Raycast(rigid.position, dirVec, 0.7f, LayerMask.GetMask("Ludo"));
+        RaycastHit2D miniGameZ = Physics2D.Raycast(rigid.position, dirVec, 0.7f, LayerMask.GetMask("mgz"));
         if (rayHitLuna.collider != null||rayHitLudo.collider != null)
         {
             if(rayHitLuna)
@@ -102,9 +103,12 @@ public class Player : MonoBehaviour
             spaceIcon_Luna.SetActive(false);
             spaceIcon_Ludo.SetActive(false);
         }
-    }
 
-   
+        if(miniGameZ)
+        {
+            SceneManager.LoadScene("Game Scene");
+        }
+    }
 
 
 }

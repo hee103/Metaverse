@@ -38,7 +38,7 @@ public class FollowCamera : MonoBehaviour
     public Vector3 Cameracontrol(Vector3 pos)
     {
         pos.x = Mathf.Clamp(pos.x, -5.1f, 5.1f);
-        pos.y = Mathf.Clamp(pos.y, -3.8f, 3.8f);
+        pos.y = Mathf.Clamp(pos.y, -3.7f, 3.7f);
         return pos;
     }
 }
