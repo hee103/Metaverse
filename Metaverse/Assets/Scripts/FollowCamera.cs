@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FollowCamera : MonoBehaviour
 {
     public Transform target;
     float offsetX;
     float offsetY;
+    private string currentScene;
 
     void Start()
     {
+        currentScene = SceneManager.GetActiveScene().name;
         if (target == null)
             return;
 
@@ -22,13 +25,21 @@ public class FollowCamera : MonoBehaviour
         if (target == null)
             return;
 
-        Vector3 posX = transform.position;
-        posX.x = target.position.x + offsetX;
-        transform.position = posX;
+        Vector3 newPosition = transform.position;
+        newPosition.x = target.position.x + offsetX;
+        newPosition.y = target.position.y + offsetY;
+        if (currentScene == "Main Scene")
+        {
+            newPosition = Cameracontrol(newPosition);
+        }
+        transform.position = newPosition;
 
-        Vector3 posY = transform.position;
-        posY.y = target.position.y + offsetY;
-        transform.position = posY;
+    }
+    public Vector3 Cameracontrol(Vector3 pos)
+    {
+        pos.x = Mathf.Clamp(pos.x, -5.1f, 5.1f);
+        pos.y = Mathf.Clamp(pos.y, -3.8f, 3.8f);
+        return pos;
     }
 }
 

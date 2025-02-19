@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,6 +15,8 @@ public class Player : MonoBehaviour
     bool isHorizonMove;
     Vector3 dirVec;
     GameObject scanNPC;
+    public GameObject spaceIcon_Luna; 
+    public GameObject spaceIcon_Ludo;
 
     private void Awake()
     {
@@ -77,14 +80,27 @@ public class Player : MonoBehaviour
         rigid.velocity = moveVec*Speed;
 
         Debug.DrawRay(rigid.position,dirVec*0.7f,new Color(0,1,0));
-        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, dirVec, 0.7f,LayerMask.GetMask("NPC"));
-        if(rayHit.collider != null)
+        RaycastHit2D rayHitLuna = Physics2D.Raycast(rigid.position, dirVec, 0.7f,LayerMask.GetMask("Luna"));
+        RaycastHit2D rayHitLudo = Physics2D.Raycast(rigid.position, dirVec, 0.7f, LayerMask.GetMask("Ludo"));
+        if (rayHitLuna.collider != null||rayHitLudo.collider != null)
         {
-            scanNPC = rayHit.collider.gameObject;
+            if(rayHitLuna)
+            {
+                scanNPC = rayHitLuna.collider.gameObject;
+                spaceIcon_Luna.SetActive(true);
+            }
+            else
+            {
+                scanNPC = rayHitLudo.collider.gameObject;
+                spaceIcon_Ludo.SetActive(true);
+            }
+            
         }
         else
         {
             scanNPC = null;
+            spaceIcon_Luna.SetActive(false);
+            spaceIcon_Ludo.SetActive(false);
         }
     }
 

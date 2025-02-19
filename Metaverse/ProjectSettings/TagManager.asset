@@ -7,17 +7,15 @@ TagManager:
   - Obstacle
   - Ground
   - NPC
-  - Ludo
-  - Luna
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - NPC
+  - Luna
   - Water
   - UI
   - Ground
-  - 
+  - Ludo
   - 
   - 
   - 
