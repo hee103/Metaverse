@@ -21,13 +21,17 @@ public class GameManager : MonoBehaviour
 
     private int currentScore = 0;
 
+
+
     private void Awake()
     {
         gameManager = this;
         uiManager = FindObjectOfType<UIManager>();
     }
+
     private void Start()
     {
+        uiManager.GameInfoPannel();
         uiManager.UpdateScore(0);
     }
 
@@ -42,6 +46,7 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
     }
 
     public void AddScore(int score)
