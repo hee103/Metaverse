@@ -31,9 +31,13 @@ public class FollowCamera : MonoBehaviour
         if (currentScene == "Main Scene")
         {
             newPosition = Cameracontrol(newPosition);
+            transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * 0.45f);
         }
-        transform.position = newPosition;
-
+        else if (currentScene == "Game Scene")
+        {
+            transform.position = newPosition;
+            newPosition = Cameracontrol(newPosition);
+        }
     }
     public Vector3 Cameracontrol(Vector3 pos)
     {
@@ -41,5 +45,6 @@ public class FollowCamera : MonoBehaviour
         pos.y = Mathf.Clamp(pos.y, -3.7f, 3.7f);
         return pos;
     }
+
 }
 
