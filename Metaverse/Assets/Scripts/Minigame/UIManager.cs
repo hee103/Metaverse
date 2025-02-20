@@ -8,16 +8,16 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI currentScoreText;
-    public TextMeshProUGUI highScoreText;
-    public TextMeshProUGUI isBestScoreSuc;
-    public TextMeshProUGUI isBestScoreFai;
-    public Image gameInfoImage;
-    public Image resultImage;
-    public Button start;
-    public Button exit;
-    public Button reStart;
+    public TextMeshProUGUI scoreText; // 게임 중 보이는 점수
+    public TextMeshProUGUI currentScoreText; // 게임 종료 후 점수
+    public TextMeshProUGUI highScoreText; // 최고 점수
+    public TextMeshProUGUI isBestScoreSuc; // 기록 갱신 성공
+    public TextMeshProUGUI isBestScoreFai; // 기록 갱신 실패
+    public Image gameInfoImage; // 게임 시작 전 설명 창
+    public Image resultImage; //  게임 종료 후 결과 창
+    public Button start; // 설명 창의 시작 버튼
+    public Button exit; // 결과 창의 main Scene으로 가는 버튼
+    public Button reStart; // 게임을 다시 하는 버튼
 
 
     private int currentScore = 0; // 현재 점수
@@ -29,7 +29,7 @@ public class UIManager : MonoBehaviour
      
         GameInfoPannel();
 
-        highScore = PlayerPrefs.GetInt("HighScore", 0);
+        highScore = PlayerPrefs.GetInt("HighScore", 0); // 점수 저장
         highScoreText.text = highScore.ToString();
     }
 
