@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI currentScoreText;
     public TextMeshProUGUI highScoreText;
+    public TextMeshProUGUI isBestScoreSuc;
+    public TextMeshProUGUI isBestScoreFai;
     public Image gameInfoImage;
     public Image resultImage;
     public Button start;
@@ -26,7 +28,6 @@ public class UIManager : MonoBehaviour
 
      
         GameInfoPannel();
-        
 
         highScore = PlayerPrefs.GetInt("HighScore", 0);
         highScoreText.text = highScore.ToString();
@@ -61,15 +62,21 @@ public class UIManager : MonoBehaviour
     {
         resultImage.gameObject.SetActive(true);
         currentScoreText.text = score.ToString();
-
+       
         // 최고 점수 갱신
         if (score > highScore)
         {
             highScore = score;
             PlayerPrefs.SetInt("HighScore", highScore);
+            isBestScoreSuc.gameObject.SetActive(true);
+            
             PlayerPrefs.Save();
         }
-
+        else
+        {
+            isBestScoreFai.gameObject.SetActive(true);
+        }
+        
         highScoreText.text = highScore.ToString();
     }
 
