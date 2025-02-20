@@ -15,9 +15,11 @@ public class Player : MonoBehaviour
     bool isHorizonMove;
     Vector3 dirVec;
     GameObject scanNPC;
-    public GameObject spaceIcon_Luna; 
+    public GameObject spaceIcon_Luna;
     public GameObject spaceIcon_Ludo;
     public GameObject miniGameZone;
+
+    int type;
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
@@ -35,7 +37,7 @@ public class Player : MonoBehaviour
         bool hUp = Input.GetButtonDown("Horizontal");
         bool vUp = Input.GetButtonDown("Vertical");
 
-        if(hDown)
+        if (hDown)
         {
             isHorizonMove = true;
         }
@@ -44,31 +46,44 @@ public class Player : MonoBehaviour
             isHorizonMove = false;
         }
 
-        animator.SetInteger("isHor",(int)h);
+        animator.SetInteger("isHor", (int)h);
         animator.SetInteger("isVer", (int)v);
 
-        if(vDown && v==1)
+        if (vDown && v == 1)
         {
             dirVec = Vector3.up;
         }
-        else if(vDown && v== -1)
+        else if (vDown && v == -1)
         {
-            dirVec= Vector3.down;
+            dirVec = Vector3.down;
         }
-        else if(hDown&& h==-1)
+        else if (hDown && h == -1)
         {
-            dirVec= Vector3.left;
+            dirVec = Vector3.left;
         }
-        else if(hDown&&h==1)
+        else if (hDown && h == 1)
         {
-            dirVec=Vector3.right;
+            dirVec = Vector3.right;
         }
-        
+
         // Scan NPC
-        if(Input.GetButtonDown("Jump")&&scanNPC != null)
+        if (Input.GetButtonDown("Jump") && scanNPC != null)
         {
-            Debug.Log("This is:"+scanNPC.name);
-            SceneManager.LoadScene("Game Scene");
+            if (type == 1)
+            {
+                Debug.Log("This is:" + scanNPC.name);
+                #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+                #else
+                Application.Quit(); // 어플리케이션 종료
+                #endif
+            }
+            else
+            {
+                Debug.Log("This is:" + scanNPC.name);
+                SceneManager.LoadScene("Game Scene");
+            }
+
         }
 
 
@@ -77,25 +92,27 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         Vector2 moveVec = isHorizonMove ? new Vector2(h, 0) : new Vector2(0, v);
-        rigid.velocity = moveVec*Speed;
+        rigid.velocity = moveVec * Speed;
 
-        Debug.DrawRay(rigid.position,dirVec*0.7f,new Color(0,1,0));
-        RaycastHit2D rayHitLuna = Physics2D.Raycast(rigid.position, dirVec, 0.7f,LayerMask.GetMask("Luna"));
+        Debug.DrawRay(rigid.position, dirVec * 0.7f, new Color(0, 1, 0));
+        RaycastHit2D rayHitLuna = Physics2D.Raycast(rigid.position, dirVec, 0.7f, LayerMask.GetMask("Luna"));
         RaycastHit2D rayHitLudo = Physics2D.Raycast(rigid.position, dirVec, 0.7f, LayerMask.GetMask("Ludo"));
         RaycastHit2D miniGameZ = Physics2D.Raycast(rigid.position, dirVec, 0.7f, LayerMask.GetMask("mgz"));
-        if (rayHitLuna.collider != null||rayHitLudo.collider != null)
+        if (rayHitLuna.collider != null || rayHitLudo.collider != null)
         {
-            if(rayHitLuna)
+            if (rayHitLuna)
             {
+                type = 1;
                 scanNPC = rayHitLuna.collider.gameObject;
                 spaceIcon_Luna.SetActive(true);
             }
             else
             {
+                type = 2;
                 scanNPC = rayHitLudo.collider.gameObject;
                 spaceIcon_Ludo.SetActive(true);
             }
-            
+
         }
         else
         {
@@ -104,7 +121,7 @@ public class Player : MonoBehaviour
             spaceIcon_Ludo.SetActive(false);
         }
 
-        if(miniGameZ)
+        if (miniGameZ)
         {
             SceneManager.LoadScene("Game Scene");
         }
